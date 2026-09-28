@@ -120,8 +120,8 @@ flowchart LR
 
 ### 1. Clone and configure
 ```bash
-git clone https://github.com/<your-org>/jalproloy.git
-cd jalproloy
+git clone https://github.com/DEBANJAN-KAKATI/JALPRALOY.git
+cd JALPRALOY
 cp .env.example .env
 ```
 
@@ -283,5 +283,3 @@ or **1077** (district).
 ## License
 
 No licence has been chosen yet, so all rights are reserved by the authors until a `LICENSE` file is added.
-#   J A L P R A L O Y  
- 
