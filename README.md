@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="frontend/public/logo.png" alt="JalProloy — Flood Disaster Management" width="300">
+<img src="logo.png" alt="JalProloy — Flood Disaster Management" width="300">
 
 ### AI/ML-based heavy-rainfall early warning and hyperlocal flood prediction for Assam
 
