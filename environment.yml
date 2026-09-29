@@ -1,0 +1,61 @@
+# ML + pipelines environment. Python 3.11 because GDAL, pysteps, LightGBM and
+# friends ship reliable wheels for it (the system Python 3.14 is too new).
+#   conda env create -f environment.yml
+#   conda activate jalproloi
+#   pip install -e .
+name: jalproloi
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  # arrays and grids
+  - numpy
+  - pandas
+  - pyarrow
+  - xarray
+  - dask
+  - zarr
+  - netcdf4
+  - h5netcdf
+  - cfgrib
+  - eccodes
+  # geospatial
+  - gdal
+  - rasterio
+  - rioxarray
+  - geopandas>=1.0
+  - shapely>=2.0
+  - pyproj
+  - osmnx
+  # ML
+  - scikit-learn
+  - lightgbm
+  - xgboost
+  - shap
+  - joblib
+  - pysteps
+  # Earth Engine + ops
+  - earthengine-api
+  - apscheduler
+  - requests
+  - httpx
+  - sqlalchemy>=2.0
+  - geoalchemy2
+  - psycopg
+  # notebooks and plots
+  - jupyterlab
+  - matplotlib
+  - pytest
+  - pip
+  - pip:
+      - h3>=4.1
+      - imdlib
+      - earthaccess
+      - herbie-data
+      - ecmwf-opendata
+      - cdsapi
+      - exactextract
+      - whitebox
+# PyTorch (Engine 1 upgrade) — install separately so you get the right build:
+#   CPU:  pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   Or train on Colab/Kaggle GPUs and copy the weights into ml/models/.

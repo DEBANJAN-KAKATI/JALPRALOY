@@ -1,0 +1,7 @@
+station,river,order,lat,lon,glofas_lat,glofas_lon,warning_level_m,danger_level_m,hfl_m,cwc_code,notes
+Dibrugarh,Brahmaputra,1,27.48,94.91,27.48,94.76,,,,,"APPROX coords; fill levels + code from CWC FFS portal"
+Neamatighat,Brahmaputra,2,26.99,94.24,26.89,94.09,,,,,"APPROX coords; fill levels + code from CWC FFS portal"
+Tezpur,Brahmaputra,3,26.62,92.80,26.57,92.65,,,,,"APPROX coords; fill levels + code from CWC FFS portal"
+Guwahati,Brahmaputra,4,26.19,91.75,26.19,91.60,,,,,"APPROX coords; fill levels + code from CWC FFS portal"
+Goalpara,Brahmaputra,5,26.17,90.62,26.22,90.47,,,,,"APPROX coords; fill levels + code from CWC FFS portal"
+Dhubri,Brahmaputra,6,26.02,89.98,25.87,89.83,,,,,"APPROX coords; fill levels + code from CWC FFS portal"

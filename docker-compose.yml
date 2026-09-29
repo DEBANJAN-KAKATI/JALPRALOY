@@ -1,0 +1,75 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jalproloi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jalproloi}
+      POSTGRES_DB: ${POSTGRES_DB:-jalproloi}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/app/db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jalproloi}"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-jalproloi}:${POSTGRES_PASSWORD:-jalproloi}@db:5432/${POSTGRES_DB:-jalproloi}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - ./data:/data:ro
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    environment:
+      VITE_API_PROXY: http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  # Live-data sync (ingestion + engines + cache warm-up). Opt-in because the image is heavy:
+  #   docker compose --profile live up -d
+  scheduler:
+    profiles: ["live"]
+    build:
+      context: .
+      dockerfile: pipelines/Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-jalproloi}:${POSTGRES_PASSWORD:-jalproloi}@db:5432/${POSTGRES_DB:-jalproloi}
+      API_URL: http://backend:8000
+    volumes:
+      - ./data:/data
+      - ./ml/models:/app/ml/models
+    depends_on:
+      - db
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -1,0 +1,121 @@
+# =============================================================================
+# JalProloy — .gitignore
+# =============================================================================
+
+# --- Secrets & credentials (never commit) ------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+.netrc
+_netrc
+.cdsapirc
+.config/earthengine/
+**/earthengine/credentials
+service-account*.json
+*credentials*.json
+
+# --- Data lake: keep structure, READMEs and hand-curated CSVs only -------------
+/data/raw/*
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+/data/static/*
+!/data/static/*.csv
+!/data/static/boundaries/
+/data/static/boundaries/*
+!/data/static/boundaries/.gitkeep
+
+# Large geo / array formats anywhere else in the repo
+*.tif
+*.tiff
+*.nc
+*.nc4
+*.h5
+*.hdf5
+*.HDF5
+*.grib
+*.grib2
+*.grb2
+*.idx
+*.zarr/
+*.parquet
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.laz
+
+# --- Model artifacts & experiment outputs -------------------------------------
+/ml/models/*
+!/ml/models/.gitkeep
+*.joblib
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.ckpt
+mlruns/
+wandb/
+lightning_logs/
+catboost_info/
+
+# --- Python --------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+
+# --- Node / frontend -------------------------------------------------------------
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vercel/
+.netlify/
+
+# --- Docker / databases ---------------------------------------------------------
+pgdata/
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Logs & temp -----------------------------------------------------------------
+*.log
+logs/
+tmp/
+*.tmp
+*.swp
+*~
+
+# --- OS / editors ------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# --- Local tool settings -------------------------------------------------------------
+.claude/settings.local.json
